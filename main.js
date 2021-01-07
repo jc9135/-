@@ -3,6 +3,7 @@ import App from './App'
 import {myRquest} from './utils/request.js'
 
 Vue.config.productionTip = false
+Vue.prototype.$myRquest = myRquest
 
 App.mpType = 'app'
 

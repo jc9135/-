@@ -130,19 +130,94 @@
 				</view>
 			</view>
 		</view>
+		<wx-open-launch-weapp id="launch-btn" :username="appid" path="pages/personalInfoSub/personalInfoSub.html?type=active"
+		 v-if="showtplBtn">
+			<script type="text/wxtag-template">
+				<style>
+						.label {
+							color: #448ce1;
+							font-size: 15px;
+							display:block;
+							text-align:center;
+							 margin-top: 10px;
+							}
+					</style>
+				<div class="label">跳转小程序div>
+			   
+			</script>
+		</wx-open-launch-weapp>
 	</view>
 </template>
 
 <script>
 	import h5Copy from '@/js_sdk/junyi-h5-copy/junyi-h5-copy/junyi-h5-copy.js'
+	const jweixin = require('jweixin-module')
 	export default {
 		data() {
 			return {
 				buttonList: ['外卖', '商超', '酒店'],
-				activeIndex: 0
+				activeIndex: 0,
+				showtplBtn: false,
+				appid: ''
 			};
 		},
+		onLoad() {
+			this.shareFun()
+		},
 		methods: {
+			// 跳转小程序
+			async shareFun() {
+				let that = this;
+				const {
+					data: res
+				} = await this.$myRquest({
+					url: "member/get_sign",
+					method: "POST",
+					data: {
+						url: "https://hsm.aylzwl.com"
+					}
+				})
+				let apiList = [
+					'onMenuShareAppMessage',
+					'onMenuShareTimeline',
+					'hideOptionMenu',
+					'showOptionMenu',
+					'chooseWXPay',
+					'checkJsApi',
+					'openLocation',
+					'getLocation'
+				];
+				this.appid = res.data.appId
+				let info = {
+					debug: true,
+					appId: res.data.appId,
+					nonceStr: res.data.nonceStr,
+					timestamp: res.data.timestamp,
+					signature: res.data.signature,
+					jsApiList: apiList,
+					openTagList: ["wx-open-launch-weapp"],
+				};
+				jweixin.config(info);
+				jweixin.error(err => {
+					console.log('config fail:', err);
+				});
+
+				jweixin.ready(res => {
+					that.showtplBtn = true;
+					that.$nextTick(() => {
+						try {
+							var btn = document.getElementById('launch-btn');
+							btn.addEventListener('launch', function(e) {
+								console.log('success');
+								console.log(e);
+							});
+							btn.addEventListener('error', function(e) {
+								console.log('fail', e);
+							})
+						} catch (error) {}
+					})
+				});
+			},
 			changeTab(i) {
 				this.activeIndex = i;
 			},
@@ -213,8 +288,10 @@
 				background-size: 100%;
 			}
 		}
+
 		.content_wrap {
 			padding: 0 15px;
+
 			.content {
 				height: 465rpx;
 				width: 100%;
@@ -320,6 +397,7 @@
 				}
 
 			}
+
 			.content_btn_wrap {
 				margin: 0 auto;
 				display: flex;
@@ -342,8 +420,10 @@
 					}
 				}
 			}
+
 			.text_wrap {
 				padding: 20rpx;
+
 				.text {
 					display: block;
 					color: #fff;

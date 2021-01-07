@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8082'
+const BASE_URL = 'https://gfyhqserve.aylzwl.com/v1/'
 export const myRquest = (ops) => {
 	return new Promise((resolve, reject) => {
 		uni.request({
@@ -6,7 +6,7 @@ export const myRquest = (ops) => {
 			method: ops.method || 'GET',
 			data: ops.data || {},
 			success: (res) => {
-				if (res.data.status !== 0) {
+				if (res.data.message !== '成功') {
 					return uni.showToast({
 						title: "获取数据失败",
 						icon: "none"
