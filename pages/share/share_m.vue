@@ -32,10 +32,17 @@
 					</view>
 					<view class="cicle_one"></view>
 					<view class="cicle_two"></view>
-					<view class="bottom"></view>
+					<view class="bottom">
+						<div class="qrCode"></div>
+						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="path" v-if="showtplBtn">
+							<script type="text/wxtag-template">
+								<div class="label1">领红包点外卖</div>
+							</script>
+						</wx-open-launch-weapp>
+					</view>
 				</view>
 				<view class="content_btn_wrap">
-					<text class="content_btn content_btn_one">我的海报</text>
+					<text class="content_btn content_btn_one" @click="sharePoster">我的海报</text>
 					<text class="content_btn content_btn_two" @click="copy">复制文案</text>
 				</view>
 				<view class="text_wrap">
@@ -54,30 +61,37 @@
 				<view class="content">
 					<view class="top">
 						<view class="bg_one">
-							<img src="@/static/img_1.png" alt="">
+							<img src="@/static/img_6.png" alt="">
 							<text>先领券</text>
 						</view>
 						<view class="bg_two">
-							<img src="@/static/img_10.png" alt="">
+							<img src="@/static/img_11.png" alt="">
 						</view>
 						<view class="bg_three">
-							<img src="@/static/img_3.png" alt="">
+							<img src="@/static/img_7.png" alt="">
 							<text>再下单</text>
 						</view>
 						<view class="bg_four">
-							<img src="@/static/img_10.png" alt="">
+							<img src="@/static/img_11.png" alt="">
 						</view>
 						<view class="bg_five">
-							<img src="@/static/img_4.png" alt="">
+							<img src="@/static/img_8.png" alt="">
 							<text>拿返利</text>
 						</view>
 					</view>
 					<view class="cicle_one"></view>
 					<view class="cicle_two"></view>
-					<view class="bottom"></view>
+					<view class="bottom">
+						<div class="qrCode"></div>
+						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="path">
+							<script type="text/wxtag-template">
+								<div class="label2">领红包点外卖</div>
+							</script>
+						</wx-open-launch-weapp>
+					</view>
 				</view>
 				<view class="content_btn_wrap">
-					<text class="content_btn content_btn_one">我的海报</text>
+					<text class="content_btn content_btn_one" @click="sharePoster">我的海报</text>
 					<text class="content_btn content_btn_two" @click="copy">复制文案</text>
 				</view>
 				<view class="text_wrap">
@@ -116,10 +130,17 @@
 					</view>
 					<view class="cicle_one"></view>
 					<view class="cicle_two"></view>
-					<view class="bottom"></view>
+					<view class="bottom">
+						<div class="qrCode"></div>
+						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="path">
+							<script type="text/wxtag-template">
+								<div class="label1">领红包订酒店</div>
+							</script>
+						</wx-open-launch-weapp>
+					</view>
 				</view>
 				<view class="content_btn_wrap">
-					<text class="content_btn content_btn_one">我的海报</text>
+					<text class="content_btn content_btn_one" @click="sharePoster">我的海报</text>
 					<text class="content_btn content_btn_two" @click="copy">复制文案</text>
 				</view>
 				<view class="text_wrap">
@@ -130,44 +151,113 @@
 				</view>
 			</view>
 		</view>
-		<wx-open-launch-weapp id="launch-btn" :username="appid" path="pages/personalInfoSub/personalInfoSub.html?type=active"
-		 v-if="showtplBtn">
-			<script type="text/wxtag-template">
-				<style>
-						.label {
-							color: #448ce1;
-							font-size: 15px;
-							display:block;
-							text-align:center;
-							 margin-top: 10px;
-							}
-					</style>
-				<div class="label">跳转小程序div>
-			   
-			</script>
-		</wx-open-launch-weapp>
+		<canvas class="testShareType" canvas-id="testShareType" :style="{width: (poster.width||10) + 'px', height: (poster.height||10) + 'px'}"></canvas>
 	</view>
 </template>
 
 <script>
 	import h5Copy from '@/js_sdk/junyi-h5-copy/junyi-h5-copy/junyi-h5-copy.js'
-	const jweixin = require('jweixin-module')
+	import {
+		getSharePoster
+	} from '@/js_sdk/QuShe-SharerPoster/QS-SharePoster/QS-SharePoster.js';
+	// const jweixin = require('jweixin-module')
 	export default {
 		data() {
 			return {
 				buttonList: ['外卖', '商超', '酒店'],
 				activeIndex: 0,
 				showtplBtn: false,
-				appid: ''
+				appid: 'gh_870576f3c6f9',
+				poster: '',
+				path:'/index/pages/h5/h5?weburl=https%3A%2F%2Frunion.meituan.com%2Furl%3Fkey%3Dab018ac27a2ca837f6982f19abcaf06d%26url%3Dhttps%253A%252F%252Fi.meituan.com%252Fawp%252Fhfe%252Fblock%252Fa13b87919a9ace9cfab4%252F89400%252Findex.html%253Fappkey%253Dab018ac27a2ca837f6982f19abcaf06d%253A0005%26sid%3D0005&lch=cps:waimai:5:ab018ac27a2ca837f6982f19abcaf06d:0005&f_token=1&f_userId=1',
+				canvasId: 'testShareType'
 			};
 		},
 		onLoad() {
+	console.log(location)
 			this.shareFun()
 		},
 		methods: {
+
+			async sharePoster() {
+				let _this = this;
+				const d = await getSharePoster({ //return Promise
+					_this: _this, //若在组件中使用 必传
+					type: 'testShareType', //自定义标识
+					//Context: CanvasObejct, //可在外部传入 自己生成好的画布对象
+					backgroundImage: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201305%2F30%2F220025pxfkhykvkgkvuktq.jpg&refer=http%3A%2F%2Fattach.bbs.miui.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1612614158&t=f3ee02cb514be69ff8c47c4c0a719885', //背景图片路径
+					formData: {
+						//访问接口获取背景图携带自定义数据
+					},
+					imagesArray: ({
+						bgObj,
+						type,
+						bgScale
+					}) => { //接收的第一个参数为背景图片的信息, 第二个参数是自定义标识（感觉这里用不到）, 图片为示例图片
+						const dx = bgObj.width * 0.3;
+						return [{
+							url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201305%2F30%2F220025pxfkhykvkgkvuktq.jpg&refer=http%3A%2F%2Fattach.bbs.miui.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1612614158&t=f3ee02cb514be69ff8c47c4c0a719885',
+							dx: 0,
+							dy: 80,
+							infoCallBack(imageInfo) {
+								let scale = bgObj.width * 0.2 / imageInfo.height;
+								return {
+									dWidth: bgObj.width,
+									dHeight: bgObj.height * 0.4,
+								}
+							}
+						}]
+					},
+					posterCanvasId: _this.canvasId, //canvasId
+					delayTimeScale: 20, //延时系数
+					background: { //设置自定义背景画布, 若传该属性则背景图失效
+						height: 500, //画布高度
+						width: 300, //画布宽度
+						backgroundColor: '#ccc' //背景颜色
+					},
+					setCanvasWH({ //一般必传， 动态设置canvas宽高
+						bgObj
+					}) {
+						_this.poster = bgObj
+					},
+					drawArray({ //绘制序列
+						bgObj, //背景图对象
+						type, //自定义标识
+						bgScale, //背景缩放
+						setBgObj, //动态设置画布(宽高),若使用该方法不建议背景图方式绘制, 建议使用background自定义画布绘制, 因为这个方法绘制修改背景图的宽高
+						getBgObj //获取动态设置的画布宽高
+					}) {
+						//return new Promise((rs, rj)=>{ rs([Obejct, ...]) })
+						//或者
+						//return [Obejct, ...]
+						return [{
+							//公共属性,
+							//serialNum: -∞, //allInfoCallback排序, 越小越先执行allInfoCallback
+							allInfoCallback: ({
+								drawArray
+							}) => { //可以返回整个绘制序列的方法, 可以自定义id来获取某个绘制序列项
+								//return new Promise((rs, rj)=>{ rs([Obejct, ...]) })
+								//或者
+								//return [Obejct, ...]
+								//最终输出的对象属性会覆盖原属性
+							},
+
+							type: 'image', // 绘制类型, 详见上方 绘制类型大纲
+							//...对应type的属性, 详见下方
+						}]
+					}
+				})
+			},
 			// 跳转小程序
 			async shareFun() {
 				let that = this;
+				const {
+					data: res1
+				} = await this.$myRquest({
+					url: "member/mt_push_url",
+					method: "POST"
+				})
+				console.log(res)
 				const {
 					data: res
 				} = await this.$myRquest({
@@ -283,7 +373,7 @@
 			min-height: calc(100vh);
 
 			.bg_wrap {
-				background: url(../../static/img_1.jpg) no-repeat center top;
+				background: url(https://hsm.aylzwl.com/wmq/static/img_1.jpg) no-repeat center top;
 				height: 348rpx;
 				background-size: 100%;
 			}
@@ -300,7 +390,38 @@
 				border-radius: 10px;
 				position: relative;
 				box-sizing: border-box;
-
+				.bottom {
+					display: flex;
+					flex-direction: column;
+					.qrCode {
+						height: 200rpx;
+						width: 200rpx;
+						margin: 0 auto;
+					}
+					.label1 {
+						color: #Fff;
+						display: block;
+						width: 250rpx;
+						height: 60rpx;
+						line-height: 60rpx;
+						text-align: center;
+						border-radius: 20px;
+						background-color: #fe7000;
+						margin: 0 auto;
+					}
+					.label2 {
+						color: #Fff;
+						display: block;
+						width: 250rpx;
+						height: 60rpx;
+						line-height: 60rpx;
+						text-align: center;
+						border-radius: 20px;
+						background-color: #31b768;
+						margin: 0 auto;
+					}
+				}
+				
 				.cicle_one {
 					width: 50rpx;
 					height: 50rpx;
@@ -406,7 +527,7 @@
 
 				.content_btn {
 					display: inline-block;
-					width: 320rpx;
+					width: 300rpx;
 					height: 80rpx;
 					line-height: 80rpx;
 					background-color: #fff;
@@ -438,18 +559,53 @@
 		}
 
 		.box_two {
+			background-color: #59de21;
+			min-height: calc(100vh);
+
 			.bg_wrap {
-				background: url(../../static/img_5.png) no-repeat center top;
+				background: url(https://hsm.aylzwl.com/wmq/static/img_5.png) no-repeat center top;
 				height: 348rpx;
 				background-size: 100%;
+			}
+
+			.cicle_one {
+				background-color: #59de21 !important;
+			}
+
+			.cicle_two {
+				background-color: #59de21 !important;
+			}
+
+			.top {
+				border-bottom: 1px dashed #59de21 !important;
 			}
 		}
 
 		.box_three {
+			background-color: #ff3c3c;
+			min-height: calc(100vh);
+
 			.bg_wrap {
-				background: url(../../static/img_9.jpg) no-repeat center top;
+				background: url(https://hsm.aylzwl.com/wmq/static/img_9.jpg) no-repeat center top;
 				height: 348rpx;
 				background-size: 100%;
+			}
+
+			.cicle_one {
+				background-color: #ff3c3c !important;
+			}
+
+			.cicle_two {
+				background-color: #ff3c3c !important;
+			}
+
+			.top {
+				border-bottom: 1px dashed #ff3c3c !important;
+			}
+
+			.content_btn_one {
+				background-color: #fff !important;
+				color: #000 !important;
 			}
 		}
 	}

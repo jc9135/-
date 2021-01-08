@@ -56,6 +56,20 @@
         },
         "usingComponents" : true
     },
+	"h5": {
+	        "devServer": {
+	            "port": 8080,
+	            "disableHostCheck": true,
+	            "proxy": {
+	                "/api": {
+	                    "target": "https://gfyhqserve.aylzwl.com/v1/",
+	                    "changeOrigin": true,
+	                    "secure": false,
+	                    "pathRewrite": {"^/api" : ""}
+	                }
+	            }
+	        }
+	    },
     "mp-alipay" : {
         "usingComponents" : true
     },
