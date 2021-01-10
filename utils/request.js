@@ -7,7 +7,6 @@ export const myRquest = (ops) => {
 			token = res.data;
 		}
 	});
-			console.log(token);
 	return new Promise((resolve, reject) => {
 		uni.request({
 			url: BASE_URL + ops.url,
@@ -25,6 +24,7 @@ export const myRquest = (ops) => {
 						resolve(res)
 						break;
 					default:
+						resolve(res)
 						break;
 				}
 			},
@@ -51,6 +51,7 @@ const getCode = () => {
 				code:getUrlCode().code
 			},
 			success: (res) => {
+				uni.setStorage({key: 'token',data: res.data.token});
 			},
 			fail:(err)=> {
 			}
