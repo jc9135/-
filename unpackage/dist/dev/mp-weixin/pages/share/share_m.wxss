@@ -33,7 +33,7 @@
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  width: 45%;
+  width: 35%;
   height: 60rpx;
   margin: 0 auto;
   background-color: #fff;
@@ -51,7 +51,7 @@
   padding: 0;
 }
 #shareM .button_wrap .button_item {
-  width: 33%;
+  width: 48%;
   height: 56rpx;
   text-align: center;
   line-height: 56rpx;
@@ -96,7 +96,11 @@
 #shareM .content_wrap .content .bottom .qrCode {
   height: 200rpx;
   width: 200rpx;
-  margin: 0 auto;
+  margin: 20rpx auto 0;
+}
+#shareM .content_wrap .content .bottom .qrCode #couponQrcode {
+  height: 200rpx !important;
+  width: 200rpx !important;
 }
 #shareM .content_wrap .content .bottom .label1 {
   color: #Fff;

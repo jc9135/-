@@ -24,11 +24,20 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.posters-layer {
+.mosowe-canvas-image.data-v-9b6619d8 {
+  overflow: hidden;
+}
+.mosowe-canvas-image .canvas-wrap-box.data-v-9b6619d8 {
+  overflow: hidden;
+  height: 0;
+  width: 0;
   position: fixed;
-  top: -5000rpx;
-  left: -5000rpx;
-  /* top: 0;
-  left: 0; */
+  left: 200%;
+  top: 0;
+}
+.mosowe-canvas-image .canvas-wrap.data-v-9b6619d8 {
+  overflow: hidden;
+  height: 0;
+  width: 0;
 }
 

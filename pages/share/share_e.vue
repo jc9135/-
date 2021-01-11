@@ -114,7 +114,6 @@
 
 <script>
 	import h5Copy from '@/js_sdk/junyi-h5-copy/junyi-h5-copy/junyi-h5-copy.js'
-	const jweixin = require('jweixin-module')
 	export default {
 		data() {
 			return {
@@ -179,25 +178,6 @@
 					jsApiList: apiList,
 					openTagList: ["wx-open-launch-weapp"],
 				};
-				jweixin.config(info);
-				jweixin.error(err => {
-					console.log('config fail:', err);
-				});
-				jweixin.ready(res => {
-					that.showtplBtn = true;
-					that.$nextTick(() => {
-						try {
-							var btn = document.getElementById('launch-btn');
-							btn.addEventListener('launch', function(e) {
-								console.log('success');
-								console.log(e);
-							});
-							btn.addEventListener('error', function(e) {
-								console.log('fail', e);
-							})
-						} catch (error) {}
-					})
-				});
 			},
 			changeTab(i) {
 				this.activeIndex = i;

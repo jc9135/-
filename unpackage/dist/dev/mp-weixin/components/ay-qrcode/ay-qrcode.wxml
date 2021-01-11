@@ -1,0 +1,1 @@
+<view class="{{['data-v-1db347e8',modal?'show':'hide']}}"><canvas class="canvas data-v-1db347e8" style="width:200rpx;height:200rpx;" canvas-id="couponQrcode"></canvas></view>
