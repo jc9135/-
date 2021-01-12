@@ -180,7 +180,6 @@
 				pathOne: '/index/pages/h5/h5?weburl=https%3A%2F%2Frunion.meituan.com%2Furl%3Fkey%3Dab018ac27a2ca837f6982f19abcaf06d%26url%3Dhttps%253A%252F%252Fi.meituan.com%252Fawp%252Fhfe%252Fblock%252Fa13b87919a9ace9cfab4%252F89400%252Findex.html%253Fappkey%253Dab018ac27a2ca837f6982f19abcaf06d%253A0005%26sid%3D0005&lch=cps:waimai:5:ab018ac27a2ca837f6982f19abcaf06d:0005&f_token=1&f_userId=1',
 				pathTwo: '',
 				pathThree: '',
-				canvasId: 'testShareType',
 				canvasUrl: '',
 				lists: [],
 				//二维码相关参数

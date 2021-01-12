@@ -13,7 +13,7 @@ export const myRquest = (ops) => {
 			method: ops.method || 'GET',
 			data: ops.data || {},
 			header: {
-				'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIxIiwiaXNzIjoiIiwiYXVkIjoiIiwiaWF0IjoxNjEwMTEwNTkwLCJuYmYiOjE2MTAxMTA1OTAsImV4cCI6MTYxMDM2OTc5MH0.KEz6hBJuRqSxBD90eOes6Mmj6gzm94S3-Abfy-yRpvM', 
+				'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjEsImlzcyI6IiIsImF1ZCI6IiIsImlhdCI6MTYxMDQ1MjAxNCwibmJmIjoxNjEwNDUyMDE0LCJleHAiOjE2MTA3MTEyMTR9.5fqwVzGWwAepIYEhbQOmzrqKRIuaBDbWjG3OIuPzeus', 
 			},
 			success: (res) => {
 				switch (res.data.code) {

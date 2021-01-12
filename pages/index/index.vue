@@ -1,8 +1,62 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
+		<view class="user_info">
+			<view class="info_box">
+				<image class="avatar" :src="avatarUrl"></image>
+				<view class="info">
+					<text>{{userName}}</text><br />
+					<text>推荐人：{{pidNickName}}</text>
+				</view>
+			</view>
+			<view class="money_box">
+				<view class="money_top">
+					<text>{{money}}</text>
+					<text>{{money}}</text>
+					<text>{{money}}</text>
+					<text>{{money}}</text>
+				</view>
+				<view class="money_bottom">
+					<text>累计收益</text>
+					<text>今日收益</text>
+					<text>昨日收益</text>
+					<text>余额</text>
+				</view>
+			</view>
+			
+			<view class="list_box">
+				
+			</view>
+		</view>
+		
+		<view class="user_click">
+			<view class="click_item">
+				<view>
+					<image src="@/static/inde_1.png"></image>
+					<text>团队订单</text>
+				</view>
+				<text>></text>
+			</view>
+			<view class="click_item">
+				<view>
+					<image src="@/static/index_4.png"></image>
+					<text>我的海报</text>
+				</view>
+				<text>></text>
+			</view>
+			<view class="click_item">
+				<view>
+					<image src="@/static/index_1.png"></image>
+					<text>我的团队</text>
+				</view>
+				<text>></text>
+			</view>
+			<view class="click_item">
+				<view>
+					<image src="@/static/inde_4.png"></image>
+					<text>提现</text>
+				</view>
+				<text>></text>
+			</view>
 		</view>
 	</view>
 </template>
@@ -11,42 +65,109 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				userName: '',
+				money: '',
+				avatarUrl: '',
+				registerTime: '',
+				pidNickName: '',
 			}
 		},
 		onLoad() {
-
+			this.getUserInfo();
 		},
 		methods: {
-
+			async getUserInfo(){
+				const {
+					data: res
+				} = await this.$myRquest({
+					url: "member/member_info",
+					method: "POST"
+				});
+				this.userName = res.data.nick_name;
+				this.money = res.data.money;
+				this.avatarUrl = res.data.avatar_url;
+				this.registerTime = res.data.register_time;
+				this.pidNickName = res.data.pid_nick_name;
+			}
 		}
 	}
 </script>
 
-<style>
+<style lang="scss">
 	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+		.user_info {
+			background:  url(https://hsm.aylzwl.com/wmq/static/index_bg.jpg) no-repeat center top;
+			background-size: 100% 100%;
+			width: 90%;
+			height: 350rpx;
+			border-radius: 10rpx;
+			margin: 20rpx auto;
+			.info_box {
+				padding: 50rpx;
+				display: flex;
+				.avatar {
+					width: 100rpx;
+					height: 100rpx;
+					border-radius: 50%;
+				}
+				.info {
+					color: #fff;
+					font-size: 30rpx;
+					margin-left: 15rpx;
+					line-height: 50rpx;
+				}
+			}
+			.money_box {
+				padding: 10rpx 50rpx;
+				text {
+					display: inline-block;
+					width: 25%;
+					text-align: center;
+					color: #fff;
+					
+				}
+				.money_top {
+					text {
+						font-weight: 600;
+						font-size: 34rpx;
+					}
+				}
+				.money_bottom {
+					text {
+						font-size: 26rpx;
+					}
+				}
+			}
+		}
+		.user_click {
+			padding: 20rpx;
+			width: 90%;
+			margin: 0 auto;
+			.click_item {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin: 15rpx 0;
+				padding: 15rpx;
+				border-bottom: 1px solid #eee;
+				text {
+					color: #eee;
+					font-size: 30rpx;
+				}
+				view {
+					display: flex;
+					align-items: center;
+					image {
+						width: 60rpx;
+						height: 60rpx;
+					}
+					text {
+						font-size: 30rpx;
+						margin-left: 20rpx;
+						color: #000;
+					}
+				}
+			}
+		}
 	}
 </style>

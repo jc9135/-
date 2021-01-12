@@ -1,9 +1,9 @@
 <template>
 	<view id="shareM">
-		<ul class="button_wrap">
+		<!-- <ul class="button_wrap">
 			<li class="button_item" v-for="item , index in buttonList" :class="{active:activeIndex === index}" :key="index"
 			 @click="changeTab(index)">{{item}}</li>
-		</ul>
+		</ul> -->
 		<view class="box_one" v-if="activeIndex === 0">
 			<view class="bg_wrap">
 
@@ -33,7 +33,9 @@
 					<view class="cicle_one"></view>
 					<view class="cicle_two"></view>
 					<view class="bottom">
-						<div class="qrCode"></div>
+						<div class="qrCode">
+							<img :src="qrCodeUrlOne" alt="">
+						</div>
 						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="pathOne" v-if="showtplBtn">
 							<script type="text/wxtag-template">
 								<div class="label1">领红包点外卖</div>
@@ -42,7 +44,7 @@
 					</view>
 				</view>
 				<view class="content_btn_wrap">
-					<text class="content_btn content_btn_one" @click="sharePoster">我的海报</text>
+					<text class="content_btn content_btn_one" @click="beginCanvas">我的海报</text>
 					<text class="content_btn content_btn_two" @click="copy">复制文案</text>
 				</view>
 				<view class="text_wrap">
@@ -85,7 +87,9 @@
 					<view class="cicle_one"></view>
 					<view class="cicle_two"></view>
 					<view class="bottom">
-						<div class="qrCode"></div>
+						<div class="qrCode">
+							<ayQrcode ref="qrcodetwo" :modal="modal_qrTwo" :url="qrCodeUrlTwo" @hideQrcode="hideQrcodeTwo" />
+						</div>
 						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="pathTwo">
 							<script type="text/wxtag-template">
 								<div class="label2" >领红包点外卖</div>
@@ -94,7 +98,7 @@
 					</view>
 				</view>
 				<view class="content_btn_wrap">
-					<text class="content_btn content_btn_one" @click="sharePoster">我的海报</text>
+					<text class="content_btn content_btn_one" @click="beginCanvas">我的海报</text>
 					<text class="content_btn content_btn_two" @click="copy">复制文案</text>
 				</view>
 				<view class="text_wrap">
@@ -108,44 +112,106 @@
 				</view>
 			</view>
 		</view>
-		
+		<!-- <image :src="canvasUrl" mode="widthFix"></image> -->
+		<mosowe-canvas-image 
+			ref="mosoweCanvasComponents" 
+			@canvasImage="_canvasImage" 
+			:lists="lists" 
+			height="300" 
+			width="300"
+			showPreview />
 	</view>
 </template>
 
 <script>
 	import h5Copy from '@/js_sdk/junyi-h5-copy/junyi-h5-copy/junyi-h5-copy.js'
+	import ayQrcode from "@/components/ay-qrcode/ay-qrcode.vue"
+	import jweixin from 'jweixin-npm'
 	export default {
 		data() {
 			return {
-				buttonList: ['外卖', '果蔬'],
+				//buttonList: ['外卖', '商超'],//, '酒店'
 				activeIndex: 0,
 				showtplBtn: false,
 				appid: 'gh_870576f3c6f9',
 				pathOne: '/index/pages/h5/h5?weburl=https%3A%2F%2Frunion.meituan.com%2Furl%3Fkey%3Dab018ac27a2ca837f6982f19abcaf06d%26url%3Dhttps%253A%252F%252Fi.meituan.com%252Fawp%252Fhfe%252Fblock%252Fa13b87919a9ace9cfab4%252F89400%252Findex.html%253Fappkey%253Dab018ac27a2ca837f6982f19abcaf06d%253A0005%26sid%3D0005&lch=cps:waimai:5:ab018ac27a2ca837f6982f19abcaf06d:0005&f_token=1&f_userId=1',
 				pathTwo: '',
 				pathThree: '',
-				canvasId: 'testShareType',
+				canvasUrl: '',
+				lists: [],
 			};
+		},
+		components: {
+			ayQrcode,
 		},
 		onLoad() {
 			this.getPushUrl();
-			this.shareFun();
+			this.getQrCode();
 		},
 		methods: {
-			sharePoster() {
-
+			async getQrCode(){
+				const {
+					data: res
+				} = await this.$myRquest({
+					url: "member/member_info",
+					method: "POST"
+				});
+				const qrCode = res.data.invite_code_url;
+				this.lists = [{
+						type: 'image',
+						content: '../../static/img_6.png',
+						width: 200,
+						height: 100,
+						x: 50,
+						y: 20,
+					},
+					{
+						type: 'qr',
+						content: qrCode,
+						width: 100,
+						height: 100,
+						x: 0,
+						y: 200,
+						arc: true,
+						arcX: 250,
+						arcY: 250,
+						arcR: 50
+					},
+					{
+						type: 'text',
+						content: '扫一扫，获取更多信息',
+						x: 120,
+						y: 250,
+						color: '#ff0000',
+						size: 10,
+						// maxWidth: 100, 
+						// align: 'left', 
+					},
+					{
+						type: 'rect',
+						width: 1,
+						height: 100,
+						x: 0,
+						y: 10,
+						color: '#ff0000',
+					}]
+			},
+			beginCanvas() {
+				this.$refs.mosoweCanvasComponents.createCanvas();
+			},
+			_canvasImage(e) {
+				this.canvasUrl = e;
 			},
 			async getPushUrl() {
 				const {
 					data: res
 				} = await this.$myRquest({
-					url: "member/mt_push_url",
+					url: "member/elm_push_url",
 					method: "POST"
 				})
-				this.appid = res.data.mt_xcx_id;
-				this.pathOne = res.data.mt_wm_xcx;
-				this.pathTwo = res.data.mt_sg_xcx;
-				this.pathThree = res.data.mt_wm_xcx;
+				this.appid = res.data.elm_xcx_id;
+				this.pathOne = res.data.elm_wm_xcx;
+				this.qrCodeUrlOne = res.data.elm_wm_xcx_img;
 			},
 			// 跳转小程序
 			async shareFun() {
@@ -178,9 +244,33 @@
 					jsApiList: apiList,
 					openTagList: ["wx-open-launch-weapp"],
 				};
+				jweixin.config(info);
+				jweixin.ready(function (res) {
+					// config信息验证失败会执行error函数，如签名过期导致验证失败，  
+					// 具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，  
+					//对于SPA可以在这里更新签名。   
+					// alert("好像成功了！！");
+				});
+				jweixin.error(function (res) {
+					// config信息验证失败会执行error函数，如签名过期导致验证失败，  
+					// 具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，  
+					//对于SPA可以在这里更新签名。   
+					// alert("好像出错了！！");
+				});
 			},
 			changeTab(i) {
 				this.activeIndex = i;
+				switch(this.activeIndex) {
+					case 0:
+						this.showQrcodeOne();//一加载生成二维码
+					break;
+					case 1:
+						this.showQrcodeTwo();//一加载生成二维码
+					break;
+					default:
+						this.showQrcodeOne();//一加载生成二维码
+					break;
+				}
 			},
 			// 触发方法
 			copy() {
@@ -267,9 +357,13 @@
 					flex-direction: column;
 
 					.qrCode {
-						height: 200rpx;
-						width: 200rpx;
-						margin: 0 auto;
+						height: 250rpx;
+						width: 250rpx;
+						margin: 20rpx auto 0;
+						img {
+							width: 250rpx;
+							height: 250rpx;
+						}
 					}
 
 					.label1 {
