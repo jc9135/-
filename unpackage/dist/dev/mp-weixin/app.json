@@ -2,7 +2,9 @@
   "pages": [
     "pages/index/index",
     "pages/share/share_m",
-    "pages/share/share_e"
+    "pages/share/share_e",
+    "pages/withdrawal/withdrawal",
+    "pages/order/order"
   ],
   "subPackages": [],
   "window": {
@@ -11,6 +13,5 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap96.json"
+  "usingComponents": {}
 }

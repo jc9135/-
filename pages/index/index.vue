@@ -10,9 +10,9 @@
 			</view>
 			<view class="money_box">
 				<view class="money_top">
-					<text>{{money}}</text>
-					<text>{{money}}</text>
-					<text>{{money}}</text>
+					<text>{{totalMoney}}</text>
+					<text>{{todayMoney}}</text>
+					<text>{{yesterdayMoney}}</text>
 					<text>{{money}}</text>
 				</view>
 				<view class="money_bottom">
@@ -36,7 +36,7 @@
 				</view>
 				<text>></text>
 			</view>
-			<view class="click_item">
+			<view class="click_item"  @click="beginCanvas">
 				<view>
 					<image src="@/static/index_4.png"></image>
 					<text>我的海报</text>
@@ -50,14 +50,31 @@
 				</view>
 				<text>></text>
 			</view>
-			<view class="click_item">
+			<view class="click_item" @click="goWithDrawal">
 				<view>
 					<image src="@/static/inde_4.png"></image>
 					<text>提现</text>
 				</view>
 				<text>></text>
 			</view>
+			<view class="click_item">
+				<view>
+					<image src="@/static/message.png"></image>
+					<text>推送提醒</text>
+				</view>
+				<view>
+					<switch style="transform:scale(0.7)" checked @change="switchChange" />
+				</view>
+			</view>
 		</view>
+		<!-- <image :src="canvasUrl" mode="widthFix"></image> -->
+		<mosowe-canvas-image 
+			ref="mosoweCanvasComponents" 
+			@canvasImage="_canvasImage" 
+			:lists="lists" 
+			height="500" 
+			width="300"
+			showPreview />
 	</view>
 </template>
 
@@ -70,12 +87,69 @@
 				avatarUrl: '',
 				registerTime: '',
 				pidNickName: '',
+				totalMoney: '',
+				todayMoney: '',
+				yesterdayMoney: '',
+				lists:[]
 			}
 		},
 		onLoad() {
 			this.getUserInfo();
+			this.getQrCode();
 		},
 		methods: {
+			goWithDrawal () {
+				uni.navigateTo({
+					url: '/pages/withdrawal/withdrawal'
+				})
+			},
+			async getQrCode(){
+				const {
+					data: res
+				} = await this.$myRquest({
+					url: "member/member_info",
+					method: "POST"
+				});
+				const qrCode = res.data.invite_code_url;
+				this.lists = [{
+						type: 'image',
+						content: '../../static/posterBg.jpg',
+						width: 300,
+						height: 500,
+						x: 0,
+						y: 0,
+					},
+					{
+						type: 'qr',
+						content: qrCode,
+						width: 80,
+						height: 80,
+						x: 20,
+						y: 380,
+						arc: true,
+						arcX: 250,
+						arcY: 250,
+						arcR: 50
+					}]
+			},
+			async switchChange (e) {
+				console.log(e.target.value)
+				const {
+					data: res
+				} = await this.$myRquest({
+					url: "member/push_switch",
+					method: "POST",
+					data:{
+						switch: e.target.value?1:0
+					}
+				});
+			},
+			beginCanvas() {
+				this.$refs.mosoweCanvasComponents.createCanvas();
+			},
+			_canvasImage(e) {
+				this.canvasUrl = e;
+			},
 			async getUserInfo(){
 				const {
 					data: res
@@ -88,6 +162,9 @@
 				this.avatarUrl = res.data.avatar_url;
 				this.registerTime = res.data.register_time;
 				this.pidNickName = res.data.pid_nick_name;
+				this.totalMoney = res.data.total_money;
+				this.todayMoney = res.data.today_money;
+				this.yesterdayMoney = res.data.yesterday_money;
 			}
 		}
 	}

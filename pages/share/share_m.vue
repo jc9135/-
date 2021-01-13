@@ -160,7 +160,7 @@
 			ref="mosoweCanvasComponents" 
 			@canvasImage="_canvasImage" 
 			:lists="lists" 
-			height="300" 
+			height="500" 
 			width="300"
 			showPreview />
 	</view>
@@ -249,41 +249,23 @@
 				const qrCode = res.data.invite_code_url;
 				this.lists = [{
 						type: 'image',
-						content: '../../static/img_6.png',
-						width: 200,
-						height: 100,
-						x: 50,
-						y: 20,
+						content: '../../static/posterBg.jpg',
+						width: 300,
+						height: 500,
+						x: 0,
+						y: 0,
 					},
 					{
 						type: 'qr',
 						content: qrCode,
-						width: 100,
-						height: 100,
-						x: 0,
-						y: 200,
+						width: 80,
+						height: 80,
+						x: 20,
+						y: 380,
 						arc: true,
 						arcX: 250,
 						arcY: 250,
 						arcR: 50
-					},
-					{
-						type: 'text',
-						content: '扫一扫，获取更多信息',
-						x: 120,
-						y: 250,
-						color: '#ff0000',
-						size: 10,
-						// maxWidth: 100, 
-						// align: 'left', 
-					},
-					{
-						type: 'rect',
-						width: 1,
-						height: 100,
-						x: 0,
-						y: 10,
-						color: '#ff0000',
 					}]
 			},
 			beginCanvas() {

@@ -94,9 +94,13 @@
           flex-direction: column;
 }
 #shareM .content_wrap .content .bottom .qrCode {
-  height: 200rpx;
-  width: 200rpx;
-  margin: 0 auto;
+  height: 250rpx;
+  width: 250rpx;
+  margin: 20rpx auto 0;
+}
+#shareM .content_wrap .content .bottom .qrCode image {
+  width: 250rpx;
+  height: 250rpx;
 }
 #shareM .content_wrap .content .bottom .label1 {
   color: #Fff;

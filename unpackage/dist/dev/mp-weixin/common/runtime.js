@@ -105,11 +105,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/ay-qrcode/ay-qrcode":1,"components/mosowe-canvas-image/mosowe-canvas-image":1};
+/******/ 		var cssChunks = {"components/mosowe-canvas-image/mosowe-canvas-image":1,"components/ay-qrcode/ay-qrcode":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"components/ay-qrcode/ay-qrcode":"components/ay-qrcode/ay-qrcode","components/mosowe-canvas-image/mosowe-canvas-image":"components/mosowe-canvas-image/mosowe-canvas-image"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/mosowe-canvas-image/mosowe-canvas-image":"components/mosowe-canvas-image/mosowe-canvas-image","components/ay-qrcode/ay-qrcode":"components/ay-qrcode/ay-qrcode"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

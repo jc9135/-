@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "uni-app",
-  "usingComponents": {}
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "mosowe-canvas-image": "/components/mosowe-canvas-image/mosowe-canvas-image"
+  }
 }

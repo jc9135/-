@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "美团外卖",
+  "navigationBarTitleText": "",
   "enablePullDownRefresh": false,
   "usingComponents": {
     "mosowe-canvas-image": "/components/mosowe-canvas-image/mosowe-canvas-image",

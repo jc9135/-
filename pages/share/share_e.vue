@@ -1,9 +1,9 @@
 <template>
 	<view id="shareM">
-		<!-- <ul class="button_wrap">
+		<ul class="button_wrap">
 			<li class="button_item" v-for="item , index in buttonList" :class="{active:activeIndex === index}" :key="index"
 			 @click="changeTab(index)">{{item}}</li>
-		</ul> -->
+		</ul>
 		<view class="box_one" v-if="activeIndex === 0">
 			<view class="bg_wrap">
 
@@ -34,7 +34,7 @@
 					<view class="cicle_two"></view>
 					<view class="bottom">
 						<div class="qrCode">
-							<img :src="qrCodeUrlOne" alt="">
+							<image :src="qrCodeUrlOne" alt=""></image>
 						</div>
 						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="pathOne" v-if="showtplBtn">
 							<script type="text/wxtag-template">
@@ -88,7 +88,7 @@
 					<view class="cicle_two"></view>
 					<view class="bottom">
 						<div class="qrCode">
-							<ayQrcode ref="qrcodetwo" :modal="modal_qrTwo" :url="qrCodeUrlTwo" @hideQrcode="hideQrcodeTwo" />
+							<image :src="qrCodeUrlTwo" alt=""></image>
 						</div>
 						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="pathTwo">
 							<script type="text/wxtag-template">
@@ -117,7 +117,7 @@
 			ref="mosoweCanvasComponents" 
 			@canvasImage="_canvasImage" 
 			:lists="lists" 
-			height="300" 
+			height="500" 
 			width="300"
 			showPreview />
 	</view>
@@ -130,7 +130,7 @@
 	export default {
 		data() {
 			return {
-				//buttonList: ['外卖', '商超'],//, '酒店'
+				buttonList: ['外卖', '商超'],//, '酒店'
 				activeIndex: 0,
 				showtplBtn: false,
 				appid: 'gh_870576f3c6f9',
@@ -139,6 +139,8 @@
 				pathThree: '',
 				canvasUrl: '',
 				lists: [],
+				qrCodeUrlOne:'',
+				qrCodeUrlTwo:'',
 			};
 		},
 		components: {
@@ -159,41 +161,23 @@
 				const qrCode = res.data.invite_code_url;
 				this.lists = [{
 						type: 'image',
-						content: '../../static/img_6.png',
-						width: 200,
-						height: 100,
-						x: 50,
-						y: 20,
+						content: '../../static/posterBg.jpg',
+						width: 300,
+						height: 500,
+						x: 0,
+						y: 0,
 					},
 					{
 						type: 'qr',
 						content: qrCode,
-						width: 100,
-						height: 100,
-						x: 0,
-						y: 200,
+						width: 80,
+						height: 80,
+						x: 20,
+						y: 380,
 						arc: true,
 						arcX: 250,
 						arcY: 250,
 						arcR: 50
-					},
-					{
-						type: 'text',
-						content: '扫一扫，获取更多信息',
-						x: 120,
-						y: 250,
-						color: '#ff0000',
-						size: 10,
-						// maxWidth: 100, 
-						// align: 'left', 
-					},
-					{
-						type: 'rect',
-						width: 1,
-						height: 100,
-						x: 0,
-						y: 10,
-						color: '#ff0000',
 					}]
 			},
 			beginCanvas() {
@@ -211,7 +195,9 @@
 				})
 				this.appid = res.data.elm_xcx_id;
 				this.pathOne = res.data.elm_wm_xcx;
+				this.pathTwo = res.data.elm_sg_xcx;
 				this.qrCodeUrlOne = res.data.elm_wm_xcx_img;
+				this.qrCodeUrlTwo = res.data.elm_sg_xcx_img;
 			},
 			// 跳转小程序
 			async shareFun() {
@@ -260,17 +246,6 @@
 			},
 			changeTab(i) {
 				this.activeIndex = i;
-				switch(this.activeIndex) {
-					case 0:
-						this.showQrcodeOne();//一加载生成二维码
-					break;
-					case 1:
-						this.showQrcodeTwo();//一加载生成二维码
-					break;
-					default:
-						this.showQrcodeOne();//一加载生成二维码
-					break;
-				}
 			},
 			// 触发方法
 			copy() {
@@ -360,7 +335,7 @@
 						height: 250rpx;
 						width: 250rpx;
 						margin: 20rpx auto 0;
-						img {
+						image {
 							width: 250rpx;
 							height: 250rpx;
 						}
