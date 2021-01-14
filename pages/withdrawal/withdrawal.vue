@@ -2,7 +2,7 @@
 	<view>
 		<view class="input_wrap">
 			<text class="tip">请输入提现金额</text>
-			<input class="uni-input input" @input="onKeyInput" type="number" placeholder="" />
+			<input class="uni-input input" @input="onKeyInput" :value="inputValue" type="number" placeholder="" />
 			<text class="num">账户余额：{{money}}</text>
 		</view>
 		<view class="text_box">
@@ -116,6 +116,9 @@
 						icon:'none'
 					});
 					this.isClick = false;
+					this.inputValue = '';
+					this.getUserInfo();
+					this.getMoneyList();
 			    } else {
 					uni.showToast({
 						title: '请输入整数',

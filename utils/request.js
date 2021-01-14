@@ -1,4 +1,4 @@
-const BASE_URL = '/api'
+const BASE_URL = '/api/'
 export const myRquest = (ops) => {
 	let token;
 	uni.getStorage({

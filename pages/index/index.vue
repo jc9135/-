@@ -29,24 +29,17 @@
 		</view>
 		
 		<view class="user_click">
-			<view class="click_item">
+			<view class="click_item" @click="goOrder">
 				<view>
 					<image src="@/static/inde_1.png"></image>
 					<text>团队订单</text>
 				</view>
 				<text>></text>
 			</view>
-			<view class="click_item"  @click="beginCanvas">
+			<view class="click_item" @click="beginCanvas">
 				<view>
 					<image src="@/static/index_4.png"></image>
 					<text>我的海报</text>
-				</view>
-				<text>></text>
-			</view>
-			<view class="click_item">
-				<view>
-					<image src="@/static/index_1.png"></image>
-					<text>我的团队</text>
 				</view>
 				<text>></text>
 			</view>
@@ -54,6 +47,13 @@
 				<view>
 					<image src="@/static/inde_4.png"></image>
 					<text>提现</text>
+				</view>
+				<text>></text>
+			</view>
+			<view class="click_item"  @click="goDetailed">
+				<view>
+					<image src="@/static/index_1.png"></image>
+					<text>收入明细</text>
 				</view>
 				<text>></text>
 			</view>
@@ -103,6 +103,16 @@
 					url: '/pages/withdrawal/withdrawal'
 				})
 			},
+			goDetailed () {
+				uni.navigateTo({
+					url: '/pages/detailed/detailed'
+				})
+			},
+			goOrder () {
+				uni.navigateTo({
+					url: '/pages/order/order'
+				})
+			},
 			async getQrCode(){
 				const {
 					data: res
@@ -143,6 +153,12 @@
 						switch: e.target.value?1:0
 					}
 				});
+				if (res.code == 1) {
+					uni.showToast({
+						title: res.message,
+						icon: "none"
+					})
+				}
 			},
 			beginCanvas() {
 				this.$refs.mosoweCanvasComponents.createCanvas();
