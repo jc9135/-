@@ -1,4 +1,4 @@
-const BASE_URL = '/api/'
+const BASE_URL = 'https://gfyhqserve.aylzwl.com/v1/'
 export const myRquest = (ops) => {
 	let token;
 	uni.getStorage({

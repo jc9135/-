@@ -56,20 +56,30 @@
         },
         "usingComponents" : true
     },
-	"h5": {
-	        "devServer": {
-	            "port": 8080,
-	            "disableHostCheck": true,
-	            "proxy": {
-	                "/api": {
-	                    "target": "https://gfyhqserve.aylzwl.com/v1/",
-	                    "changeOrigin": true,
-	                    "secure": false,
-	                    "pathRewrite": {"^/api" : ""}
-	                }
-	            }
-	        }
-	    },
+    "h5" : {
+        "devServer" : {
+            "port" : 8080,
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/api" : {
+                    "target" : "https://gfyhqserve.aylzwl.com/v1/",
+                    "changeOrigin" : true,
+                    "secure" : false,
+                    "pathRewrite" : {
+                        "^/api" : ""
+                    }
+                }
+            }
+        },
+        "router" : {
+            "mode" : "hash",
+            "base" : "/wmq/h5/"
+        }
+    },
+    "router" : {
+        //"base" : "mall/website/",    //填写你的线上地址（如http://m.shop.com/mall/webiste/，线上根目录是http://m.shop.com,取得是根目录后的mall/website， 注意本地开发时需要隐藏这行
+        "mode" : "history"
+    },
     "mp-alipay" : {
         "usingComponents" : true
     },
@@ -79,7 +89,7 @@
     "mp-toutiao" : {
         "usingComponents" : true
     },
-    "uniStatistics": {  
-        "enable": false
+    "uniStatistics" : {
+        "enable" : false
     }
 }

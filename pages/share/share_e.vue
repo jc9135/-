@@ -126,7 +126,7 @@
 <script>
 	import h5Copy from '@/js_sdk/junyi-h5-copy/junyi-h5-copy/junyi-h5-copy.js'
 	import ayQrcode from "@/components/ay-qrcode/ay-qrcode.vue"
-	import jweixin from 'jweixin-npm'
+	import jweixin from 'jweixin-module'
 	export default {
 		data() {
 			return {

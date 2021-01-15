@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://res2.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+</head>
+
+<body>
+
+
+    <script>
+        $.ajax({
+            url: 'https://gfyhqserve.aylzwl.com/v1/member/get_sign',
+            method: 'post',
+            data: {
+                url: window.location.href
+            },
+            dataType: 'json',
+            success: function (res) {
+                wx.config({
+                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印
+                    appId: res.data.appId, // 必填，公众号的唯一标识
+                    timestamp: res.data.timestamp, // 必填，生成签名的时间戳
+                    nonceStr: res.data.nonceStr, // 必填，生成签名的随机串
+                    signature: res.data.signature, // 必填，签名
+                    url: res.data.url,
+                    jsApiList: ['onMenuShareTimeline',
+                        'onMenuShareAppMessage'
+                    ], // 必填，需要使用的JS接口列表
+                    openTagList: ['wx-open-launch-weapp'] // 可选，需要使用的开放标签列表
+                })
+            }
+
+        })
+
+
+
+        wx.ready(function (res) {
+            // config信息验证失败会执行error函数，如签名过期导致验证失败，  
+            // 具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，  
+            //对于SPA可以在这里更新签名。   
+            // alert("好像成功了！！");
+        });
+
+
+        wx.error(function (res) {
+            // config信息验证失败会执行error函数，如签名过期导致验证失败，  
+            // 具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，  
+            //对于SPA可以在这里更新签名。   
+            // alert("好像出错了！！");
+        });
+    </script>
+
+    <wx-open-launch-weapp id="launch-btn" username="gh_870576f3c6f9"
+        path="/index/pages/h5/h5?weburl=https%3A%2F%2Frunion.meituan.com%2Furl%3Fkey%3Dab018ac27a2ca837f6982f19abcaf06d%26url%3Dhttps%253A%252F%252Fi.meituan.com%252Fawp%252Fhfe%252Fblock%252Fa13b87919a9ace9cfab4%252F89400%252Findex.html%253Fappkey%253Dab018ac27a2ca837f6982f19abcaf06d%253A0005%26sid%3D0005&lch=cps:waimai:5:ab018ac27a2ca837f6982f19abcaf06d:0005&f_token=1&f_userId=1">
+        <template>
+            <button class="btn"
+                style="background: #f05e08;color: #fff;font-size: 16px !important;border-radius: 100px;padding:10px 30px;border: none;margin: 10px 0;font-weight: bold;">领红包点外卖拿返利</button>
+
+        </template>
+    </wx-open-launch-weapp>
+</body>
+
+</html>

@@ -3,13 +3,13 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "个人中心"
 			}
 		},
 		{
 			"path": "pages/share/share_m",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "美团外卖",
 				"enablePullDownRefresh": false
 			}
 
@@ -17,7 +17,7 @@
 		{
 			"path": "pages/share/share_e",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "饿了么",
 				"enablePullDownRefresh": false
 			}
 
@@ -25,7 +25,7 @@
 		{
 			"path": "pages/withdrawal/withdrawal",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "余额提现",
 				"enablePullDownRefresh": false
 			}
 
@@ -34,7 +34,7 @@
             "path" : "pages/order/order",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "团队订单",
                 "enablePullDownRefresh": false
             }
             
@@ -43,7 +43,7 @@
             "path" : "pages/detailed/detailed",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "收入明细",
                 "enablePullDownRefresh": false
             }
             
@@ -53,10 +53,10 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8",
-		"app-plus": {
-			"titleNView": false
-		}
+		"backgroundColor": "#F8F8F8"
+		// "app-plus": {
+		// 	"titleNView": false
+		// }
 	},
 	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)

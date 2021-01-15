@@ -169,7 +169,7 @@
 <script>
 	import h5Copy from '@/js_sdk/junyi-h5-copy/junyi-h5-copy/junyi-h5-copy.js'
 	import ayQrcode from "@/components/ay-qrcode/ay-qrcode.vue"
-	import jweixin from 'jweixin-npm'
+	import jweixin from 'jweixin-module'
 	export default {
 		data() {
 			return {
@@ -288,6 +288,7 @@
 				this.pathThree = res.data.mt_wm_xcx;
 				this.qrCodeUrlOne = res.data.mt_wm_h5;
 				this.qrCodeUrlTwo = res.data.mt_sg_h5;
+				this.showtplBtn = true;
 			},
 			// 跳转小程序
 			async shareFun() {
