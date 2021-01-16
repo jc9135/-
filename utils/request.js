@@ -13,7 +13,8 @@ export const myRquest = (ops) => {
 			method: ops.method || 'GET',
 			data: ops.data || {},
 			header: {
-				'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjEsImlzcyI6IiIsImF1ZCI6IiIsImlhdCI6MTYxMDQ1MjAxNCwibmJmIjoxNjEwNDUyMDE0LCJleHAiOjE2MTA3MTEyMTR9.5fqwVzGWwAepIYEhbQOmzrqKRIuaBDbWjG3OIuPzeus', 
+				'token': token?token:"", 
+				// 'token':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjQsImlzcyI6IiIsImF1ZCI6IiIsImlhdCI6MTYxMDcwOTI0MiwibmJmIjoxNjEwNzA5MjQyLCJleHAiOjE2MTA5Njg0NDJ9.K0CPJd0oBGDtuv-Piz4GziHktPjXrclokQkriyfKKOI'
 			},
 			success: (res) => {
 				switch (res.data.code) {
@@ -38,7 +39,7 @@ const getCode = () => {
 	let origin = location.href; //网页授权的回调域名，这里设置的是本地端口
 	let urlNow = encodeURIComponent(origin); //处理域名
 	let scope = "snsapi_userinfo"; //弹框显示授权
-	let appid = "gh_f1ab99b9f5b5";
+	let appid = "wxa4d53b480089d680";
 	// 截取code
 	if(!getUrlCode().code){
 		let url =`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${urlNow}&response_type=code&scope=${scope}&state=123#wechat_redirect`;
@@ -51,7 +52,8 @@ const getCode = () => {
 				code:getUrlCode().code
 			},
 			success: (res) => {
-				uni.setStorage({key: 'token',data: res.data.token});
+				uni.setStorage({key: 'token',data: res.data.data.token});
+				window.location.reload();
 			},
 			fail:(err)=> {
 			}

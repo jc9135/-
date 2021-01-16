@@ -36,9 +36,9 @@
 						<div class="qrCode">
 							<image :src="qrCodeUrlOne" alt=""></image>
 						</div>
-						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="pathOne" v-if="showtplBtn">
+						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="pathOne">
 							<script type="text/wxtag-template">
-								<div class="label1">领红包点外卖</div>
+								<div class="label1" style="color: #Fff;display: block;width: 200px;height: 40px;line-height: 40px;text-align: center;border-radius: 20px;background-color: #fe7000;margin: 15px auto 0;">领红包点外卖</div>
 							</script>
 						</wx-open-launch-weapp>
 					</view>
@@ -92,7 +92,7 @@
 						</div>
 						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="pathTwo">
 							<script type="text/wxtag-template">
-								<div class="label2" >领红包点外卖</div>
+								<div class="label2"  style="color: #Fff;display: block;width: 200px;height: 40px;line-height: 40px;text-align: center;border-radius: 20px;background-color: #fe7000;margin: 15px auto 0;">领红包点外卖</div>
 							</script>
 						</wx-open-launch-weapp>
 					</view>
@@ -149,6 +149,7 @@
 		onLoad() {
 			this.getPushUrl();
 			this.getQrCode();
+			this.shareFun();
 		},
 		methods: {
 			async getQrCode(){
@@ -222,7 +223,7 @@
 					'getLocation'
 				];
 				let info = {
-					debug: true,
+					debug: false,
 					appId: res.data.appId,
 					nonceStr: res.data.nonceStr,
 					timestamp: res.data.timestamp,
@@ -319,7 +320,7 @@
 			padding: 0 15px;
 
 			.content {
-				height: 465rpx;
+				// height: 465rpx;
 				width: 100%;
 				background-color: #fff;
 				margin: 0 auto;
@@ -330,7 +331,7 @@
 				.bottom {
 					display: flex;
 					flex-direction: column;
-
+					padding: 20rpx 0;
 					.qrCode {
 						height: 250rpx;
 						width: 250rpx;

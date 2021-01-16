@@ -407,7 +407,7 @@ export default {
 							uni.hideLoading();
 						}
 					}, this);
-				}, 500);
+				}, 2000);
 			}));
 		},
 		// 预览图

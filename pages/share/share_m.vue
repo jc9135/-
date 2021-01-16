@@ -38,7 +38,7 @@
 						</div>
 						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="pathOne" v-if="showtplBtn">
 							<script type="text/wxtag-template">
-								<div class="label1">领红包点外卖</div>
+								<div class="label1"  style="color: #Fff;display: block;width: 200px;height: 40px;line-height: 40px;text-align: center;border-radius: 20px;background-color: #fe7000;margin: 15px auto 0;">领红包点外卖</div>
 							</script>
 						</wx-open-launch-weapp>
 					</view>
@@ -89,7 +89,7 @@
 						</div>
 						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="pathTwo">
 							<script type="text/wxtag-template">
-								<div class="label2" >领红包点外卖</div>
+								<div class="label2"  style="color: #Fff;display: block;width: 200px;height: 40px;line-height: 40px;text-align: center;border-radius: 20px;background-color: #fe7000;margin: 15px auto 0;">领红包点外卖</div>
 							</script>
 						</wx-open-launch-weapp>
 					</view>
@@ -138,7 +138,7 @@
 						<div class="qrCode"></div>
 						<wx-open-launch-weapp id="launch-btn" :username="appid" :path="pathThree">
 							<script type="text/wxtag-template">
-								<div class="label1">领红包订酒店</div>
+								<div class="label1"  style="color: #Fff;display: block;width: 200px;height: 40px;line-height: 40px;text-align: center;border-radius: 20px;background-color: #fe7000;margin: 15px auto 0;">领红包订酒店</div>
 							</script>
 						</wx-open-launch-weapp>
 					</view>
@@ -194,7 +194,7 @@
 		},
 		onLoad() {
 			this.getPushUrl();
-			// this.shareFun();
+			this.shareFun();
 			this.getQrCode();
 			switch(this.activeIndex) {
 				case 0:
@@ -217,7 +217,7 @@
 				setTimeout(function() {
 					// uni.hideLoading()
 					_this.$refs.qrcodeone.couponQrCode()
-				}, 50)
+				}, 500)
 			},
 
 			//传入组件的方法
@@ -281,7 +281,6 @@
 					url: "member/mt_push_url",
 					method: "POST"
 				})
-				console.log(res)
 				this.appid = res.data.mt_xcx_id;
 				this.pathOne = res.data.mt_wm_xcx;
 				this.pathTwo = res.data.mt_sg_xcx;
@@ -313,7 +312,7 @@
 					'getLocation'
 				];
 				let info = {
-					debug: true,
+					debug: false,
 					appId: res.data.appId,
 					nonceStr: res.data.nonceStr,
 					timestamp: res.data.timestamp,
@@ -421,25 +420,25 @@
 			padding: 0 15px;
 
 			.content {
-				height: 465rpx;
+				// height: 465rpx;
 				width: 100%;
 				background-color: #fff;
 				margin: 0 auto;
 				border-radius: 10px;
 				position: relative;
 				box-sizing: border-box;
-
+				padding-bottom: 20rpx;
 				.bottom {
 					display: flex;
 					flex-direction: column;
 
 					.qrCode {
-						height: 200rpx;
-						width: 200rpx;
+						height: 300rpx;
+						width: 300rpx;
 						margin: 20rpx auto 0;
 						#couponQrcode {
-							height: 200rpx !important;
-							width: 200rpx !important;
+							height: 300rpx !important;
+							width: 300rpx !important;
 						}
 					}
 

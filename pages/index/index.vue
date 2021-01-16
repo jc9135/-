@@ -4,8 +4,8 @@
 			<view class="info_box">
 				<image class="avatar" :src="avatarUrl"></image>
 				<view class="info">
-					<text>{{userName}}</text><br />
-					<text>推荐人：{{pidNickName}}</text>
+					<text>{{!!userName&&userName.length<=10?userName:userName.substring(0,10)+'...'}}</text><br />
+					<text>推荐人：{{!!pidNickName&&pidNickName.length<=10?pidNickName:pidNickName.substring(0,10)+'...'}}</text>
 				</view>
 			</view>
 			<view class="money_box">
@@ -33,6 +33,13 @@
 				<view>
 					<image src="@/static/inde_1.png"></image>
 					<text>团队订单</text>
+				</view>
+				<text>></text>
+			</view>
+			<view class="click_item" @click="goTeam">
+				<view>
+					<image src="@/static/jifen.jpeg"></image>
+					<text>我的团队</text>
 				</view>
 				<text>></text>
 			</view>
@@ -98,9 +105,9 @@
 			this.getQrCode();
 		},
 		methods: {
-			goWithDrawal () {
+			goTeam () {
 				uni.navigateTo({
-					url: '/pages/withdrawal/withdrawal'
+					url: '/pages/team/team'
 				})
 			},
 			goDetailed () {
@@ -143,7 +150,6 @@
 					}]
 			},
 			async switchChange (e) {
-				console.log(e.target.value)
 				const {
 					data: res
 				} = await this.$myRquest({

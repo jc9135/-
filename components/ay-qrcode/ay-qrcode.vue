@@ -1,6 +1,6 @@
 <template>
 	<view :class="modal?'show':'hide'">
-		<canvas class="canvas" style="width: 200rpx;height: 200rpx;" canvas-id="couponQrcode"></canvas>
+		<canvas class="canvas" style="width: 300rpx;height: 300rpx;" canvas-id="couponQrcode"></canvas>
 	</view>
 </template>
 
@@ -39,8 +39,8 @@
 				let _this = this;
 				new qrCode('couponQrcode', {
 					text: this.url,
-					width: 100,
-					height: 100,
+					width: 150,
+					height: 150,
 					colorDark: "#333333",
 					colorLight: "#FFFFFF",
 					correctLevel: qrCode.CorrectLevel.H
